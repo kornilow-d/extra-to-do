@@ -1,0 +1,4 @@
+{
+  "babelrcRoots": ["apps/*", "libs/*"],
+  "presets": ["@babel/preset-react"]
+}
