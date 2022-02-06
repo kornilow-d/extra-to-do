@@ -1,25 +1,9 @@
 import React from 'react';
 
-import './App.css';
+import Layout from './layouts';
 
 function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <p>
-          Edit <code>code</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <Layout></Layout>;
 }
 
 export default App;
