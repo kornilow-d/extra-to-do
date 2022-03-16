@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Box } from '@semcore/flex-box';
 
-const StyledFlex = styled(Box)({
+const StyledWrapper = styled(Box)({
   width: '100%',
   maxWidth: '1140px',
   margin: 'auto',
@@ -10,11 +10,7 @@ const StyledFlex = styled(Box)({
 });
 
 const MainLayout: React.FC = ({ children }) => {
-  return (
-    <>
-      <StyledFlex>{children}</StyledFlex>
-    </>
-  );
+  return <StyledWrapper>{children}</StyledWrapper>;
 };
 
 export default MainLayout;
