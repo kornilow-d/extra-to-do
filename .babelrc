@@ -1,0 +1,14 @@
+{
+  "env": {
+    "nostyle": {
+      "plugins": [
+        [
+          "babel-plugin-transform-require-ignore",
+          {
+            "extensions": [".scss"]
+          }
+        ]
+      ]
+    }
+  }
+}

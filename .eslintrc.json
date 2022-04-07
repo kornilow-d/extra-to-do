@@ -1,27 +1,10 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "parser": "@babel/eslint-parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 11,
-    "sourceType": "module"
-  },
-  "plugins": ["react", "prettier"],
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "extends": ["prettier", "react-app"],
+  "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
-    "react/prop-types": 1,
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "prettier/prettier": ["error"],
+    "max-len": "off"
   }
 }
