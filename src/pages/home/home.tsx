@@ -1,8 +1,14 @@
 import React from 'react';
-import Button from '@semcore/button';
+import { Flex } from '@semcore/flex-box';
+
+import CreateForm from '../../components/create-form';
 
 const Home: React.FC = () => {
-  return <Button>Home</Button>;
+  return (
+    <Flex my={5}>
+      <CreateForm />
+    </Flex>
+  );
 };
 
 export default Home;

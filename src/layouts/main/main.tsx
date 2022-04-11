@@ -4,7 +4,7 @@ import { Box } from '@semcore/flex-box';
 
 const StyledWrapper = styled(Box)({
   width: '100%',
-  maxWidth: '1140px',
+  maxWidth: '500px',
   margin: 'auto',
   padding: '0 20px',
 });
