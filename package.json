@@ -30,6 +30,7 @@
     "@craco/craco": "^6.4.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@hookform/resolvers": "^2.8.8",
     "@semcore/core": "^1.11.2",
     "@semcore/theme-redesign": "^1.5.12",
     "@semcore/ui": "^10.1.0",
@@ -47,7 +48,8 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",

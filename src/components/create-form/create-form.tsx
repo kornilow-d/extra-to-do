@@ -1,21 +1,33 @@
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@semcore/button';
 import Card from '@semcore/card';
 import { Box } from '@semcore/flex-box';
 import Input from '@semcore/input';
 import { Text } from '@semcore/typography';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    title: yup.string().required('Required'),
+  })
+  .required();
 
 type CreateFormInputsTypes = {
   title: string;
 };
 
 const CreateForm: React.FC = () => {
-  const { register, handleSubmit } = useForm<CreateFormInputsTypes>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateFormInputsTypes>({
+    resolver: yupResolver(schema),
+  });
+
   const onSubmit: SubmitHandler<CreateFormInputsTypes> = (data) =>
     console.log(data);
-
-  const [title, setTitle] = useState('');
 
   return (
     <Card w='100%' p={5}>
@@ -23,22 +35,24 @@ const CreateForm: React.FC = () => {
         Form
       </Text>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Box tag='form' onSubmit={handleSubmit(onSubmit)}>
         <Box mb={3}>
-          <Input>
-            <Input.Value
-              placeholder='Title task'
-              value={title}
-              {...register('title', { required: true })}
-              onChange={setTitle}
-            />
-          </Input>
+          <Controller
+            name='title'
+            control={control}
+            render={({ field }) => (
+              <Input>
+                <Input.Value placeholder='Title task' {...field} />
+              </Input>
+            )}
+          />
+          <Text size={100}>{errors?.title?.message}</Text>
         </Box>
 
         <Button theme='success' use='primary' type='submit'>
           Create
         </Button>
-      </form>
+      </Box>
     </Card>
   );
 };
