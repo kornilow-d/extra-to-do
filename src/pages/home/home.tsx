@@ -1,13 +1,13 @@
-import React from 'react';
-import { Flex } from '@semcore/flex-box';
+import React, { useCallback } from 'react';
+import { Box } from '@semcore/flex-box';
 
-import CreateForm from '@components/create-form';
+import TaskList from '@components/task-list';
 
 const Home: React.FC = () => {
   return (
-    <Flex my={5}>
-      <CreateForm />
-    </Flex>
+    <Box my={5}>
+      <TaskList />
+    </Box>
   );
 };
 

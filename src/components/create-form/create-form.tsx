@@ -1,11 +1,19 @@
+import { useEffect, useRef } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from '@semcore/button';
 import Card from '@semcore/card';
-import { Box } from '@semcore/flex-box';
+import { Box, IBoxProps } from '@semcore/flex-box';
 import Input from '@semcore/input';
 import { Text } from '@semcore/typography';
 import * as yup from 'yup';
+
+import { ITask } from '@interfaces/task';
+
+const StyledCard = styled(Card)({
+  boxSizing: 'border-box',
+});
 
 const schema = yup
   .object({
@@ -13,28 +21,41 @@ const schema = yup
   })
   .required();
 
-type CreateFormInputsTypes = {
+type CreateFormPropsTypes = {
+  onCreate: (item: ITask) => void;
+  onCancel: () => void;
+} & IBoxProps;
+
+type CreateFormTypes = {
   title: string;
 };
 
-const CreateForm: React.FC = () => {
+const CreateForm: React.FC<CreateFormPropsTypes> = ({
+  onCreate,
+  onCancel,
+  ...props
+}) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreateFormInputsTypes>({
+  } = useForm<CreateFormTypes>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<CreateFormInputsTypes> = (data) =>
-    console.log(data);
+  const forwardRef = useRef<{ focus: Function }>(null);
+
+  useEffect(() => {
+    forwardRef.current?.focus();
+  }, []);
+
+  const onSubmit: SubmitHandler<CreateFormTypes> = (data) => {
+    onCreate(data);
+    onCancel();
+  };
 
   return (
-    <Card w='100%' p={5}>
-      <Text tag='p' size={300} mb={3} bold>
-        Form
-      </Text>
-
+    <StyledCard {...props} w='100%' p={5}>
       <Box tag='form' onSubmit={handleSubmit(onSubmit)}>
         <Box mb={3}>
           <Controller
@@ -42,7 +63,11 @@ const CreateForm: React.FC = () => {
             control={control}
             render={({ field }) => (
               <Input>
-                <Input.Value placeholder='Title task' {...field} />
+                <Input.Value
+                  {...field}
+                  ref={forwardRef}
+                  placeholder='Title task'
+                />
               </Input>
             )}
           />
@@ -52,8 +77,12 @@ const CreateForm: React.FC = () => {
         <Button theme='success' use='primary' type='submit'>
           Create
         </Button>
+
+        <Button use='secondary' ml={3} onClick={onCancel}>
+          Cancel
+        </Button>
       </Box>
-    </Card>
+    </StyledCard>
   );
 };
 
