@@ -1,5 +1,12 @@
+const path = require('path');
+
 module.exports = {
   webpack: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@components': path.resolve(__dirname, 'src/components'),
+    },
+
     configure: (webpackConfig) => {
       webpackConfig.module.rules.push({
         test: /\.js$/,

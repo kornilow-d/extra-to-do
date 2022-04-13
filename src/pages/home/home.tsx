@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@semcore/flex-box';
 
-import CreateForm from '../../components/create-form';
+import CreateForm from '@components/create-form';
 
 const Home: React.FC = () => {
   return (

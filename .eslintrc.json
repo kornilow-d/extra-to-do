@@ -1,10 +1,30 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "extends": ["prettier", "react-app"],
+  "extends": ["prettier", "react-app", "plugin:import/typescript"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": ["error"],
-    "max-len": "off"
+    "max-len": "off",
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "@/**",
+            "group": "parent",
+            "position": "before"
+          }
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      }
+    }
   }
 }

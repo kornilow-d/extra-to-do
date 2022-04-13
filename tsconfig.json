@@ -14,8 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": { "@components/*": ["./src/components/*"] }
   },
+
   "include": ["src"],
   "typeRoots": ["../node_modules/@types", "../typings"]
 }
