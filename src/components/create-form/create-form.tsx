@@ -7,6 +7,7 @@ import Card from '@semcore/card';
 import { Box, IBoxProps } from '@semcore/flex-box';
 import Input from '@semcore/input';
 import { Text } from '@semcore/typography';
+import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 
 import { ITask } from '@interfaces/task';
@@ -50,7 +51,7 @@ const CreateForm: React.FC<CreateFormPropsTypes> = ({
   }, []);
 
   const onSubmit: SubmitHandler<CreateFormTypes> = (data) => {
-    onCreate(data);
+    onCreate({ id: uuidv4(), ...data });
     onCancel();
   };
 
