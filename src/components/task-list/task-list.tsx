@@ -27,6 +27,18 @@ const TaskList: React.FC = () => {
     []
   );
 
+  const updateTask = useCallback((task: ITask) => {
+    setList((prevState) =>
+      prevState.map((item) => (item.id === task.id ? { ...task } : item))
+    );
+  }, []);
+
+  const removeTask = useCallback(
+    (id: string) =>
+      setList((prevState) => prevState.filter((item) => item.id !== id)),
+    []
+  );
+
   return (
     <Card mt={4} p={5}>
       <Text tag='p' size={300} bold mb={4}>
@@ -44,7 +56,12 @@ const TaskList: React.FC = () => {
 
       <StyledList>
         {list.map((item, index) => (
-          <Task key={index} {...item} />
+          <Task
+            key={index}
+            {...item}
+            onRemove={removeTask}
+            onUpdate={updateTask}
+          />
         ))}
 
         {visible && (

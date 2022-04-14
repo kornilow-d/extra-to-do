@@ -76,7 +76,7 @@ const CreateForm: React.FC<CreateFormPropsTypes> = ({
         </Box>
 
         <Button theme='success' use='primary' type='submit'>
-          Create
+          Save
         </Button>
 
         <Button use='secondary' ml={3} onClick={onCancel}>
