@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import Button from '@semcore/button';
 import Card from '@semcore/card';
@@ -10,6 +11,9 @@ import CreateForm from '@components/create-form';
 import Task from '@components/task';
 import { ITask } from '@interfaces/task';
 
+import { add, remove, update } from '../../features/tasks';
+import { RootState } from '../../store';
+
 const StyledList = styled(Box)({
   '& > :not(:last-child)': {
     marginBottom: '16px',
@@ -17,27 +21,15 @@ const StyledList = styled(Box)({
 });
 
 const TaskList: React.FC = () => {
-  const [list, setList] = useState<ITask[]>([]);
   const [visible, setVisible] = useState(false);
+  const taskList = useSelector((state: RootState) => state.tasks.list);
+  const dispatch = useDispatch();
 
   const closeCreateForm = useCallback(() => setVisible(false), []);
 
-  const createTask = useCallback(
-    (item: ITask) => setList((prevState) => [...prevState, { ...item }]),
-    []
-  );
-
-  const updateTask = useCallback((task: ITask) => {
-    setList((prevState) =>
-      prevState.map((item) => (item.id === task.id ? { ...task } : item))
-    );
-  }, []);
-
-  const removeTask = useCallback(
-    (id: string) =>
-      setList((prevState) => prevState.filter((item) => item.id !== id)),
-    []
-  );
+  const createTask = useCallback((task: ITask) => dispatch(add(task)), []);
+  const updateTask = useCallback((task: ITask) => dispatch(update(task)), []);
+  const removeTask = useCallback((id: string) => dispatch(remove(id)), []);
 
   return (
     <Card mt={4} p={5}>
@@ -55,9 +47,9 @@ const TaskList: React.FC = () => {
       </Button>
 
       <StyledList>
-        {list.map((item, index) => (
+        {taskList.map((item) => (
           <Task
-            key={index}
+            key={item.id}
             {...item}
             onRemove={removeTask}
             onUpdate={updateTask}
