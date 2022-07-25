@@ -9,6 +9,7 @@ import CloseM from '@semcore/icon/Close/m';
 import EditM from '@semcore/icon/Edit/m';
 import Input from '@semcore/input';
 import { Text } from '@semcore/typography';
+import isEmpty from 'lodash/isEmpty';
 import * as yup from 'yup';
 
 import { ITask } from '@interfaces/task';
@@ -69,7 +70,7 @@ const Task: React.FC<TaskType> = ({ title, id, onUpdate, onRemove }) => {
                 defaultValue={title}
                 control={control}
                 render={({ field }) => (
-                  <Input>
+                  <Input state={isEmpty(errors) ? 'normal' : 'invalid'}>
                     <Input.Value {...field} placeholder='Title task' />
                   </Input>
                 )}

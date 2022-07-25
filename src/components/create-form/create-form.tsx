@@ -7,6 +7,7 @@ import Card from '@semcore/card';
 import { Box, IBoxProps } from '@semcore/flex-box';
 import Input from '@semcore/input';
 import { Text } from '@semcore/typography';
+import isEmpty from 'lodash/isEmpty';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 
@@ -63,7 +64,7 @@ const CreateForm: React.FC<CreateFormPropsTypes> = ({
             name='title'
             control={control}
             render={({ field }) => (
-              <Input>
+              <Input state={isEmpty(errors) ? 'normal' : 'invalid'}>
                 <Input.Value
                   {...field}
                   ref={forwardRef}
