@@ -28,9 +28,7 @@ type CreateFormPropsTypes = {
   onCancel: () => void;
 } & IBoxProps;
 
-type CreateFormTypes = {
-  title: string;
-};
+type CreateFormTypes = ITask;
 
 const CreateForm: React.FC<CreateFormPropsTypes> = ({
   onCreate,
@@ -52,7 +50,7 @@ const CreateForm: React.FC<CreateFormPropsTypes> = ({
   }, []);
 
   const onSubmit: SubmitHandler<CreateFormTypes> = (data) => {
-    onCreate({ id: uuidv4(), ...data });
+    onCreate({ ...data, id: uuidv4() });
     onCancel();
   };
 

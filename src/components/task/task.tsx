@@ -8,11 +8,30 @@ import { Box, Flex } from '@semcore/flex-box';
 import CloseM from '@semcore/icon/Close/m';
 import EditM from '@semcore/icon/Edit/m';
 import Input from '@semcore/input';
+import Select from '@semcore/select';
 import { Text } from '@semcore/typography';
 import isEmpty from 'lodash/isEmpty';
 import * as yup from 'yup';
 
 import { ITask } from '@interfaces/task';
+
+const options = [
+  {
+    value: 'not_set',
+    label: 'No status',
+    children: 'No status',
+  },
+  {
+    value: 'in_progress',
+    label: 'In progress',
+    children: 'In progress',
+  },
+  {
+    value: 'ready',
+    label: 'Ready',
+    children: 'Ready',
+  },
+];
 
 const ControlWrapper = styled(Flex)({
   width: 'min-content',
@@ -41,7 +60,13 @@ type TaskType = {
   onRemove: (id: string) => void;
 } & ITask;
 
-const Task: React.FC<TaskType> = ({ title, id, onUpdate, onRemove }) => {
+const Task: React.FC<TaskType> = ({
+  title,
+  id,
+  status,
+  onUpdate,
+  onRemove,
+}) => {
   const {
     control,
     handleSubmit,
@@ -64,27 +89,44 @@ const Task: React.FC<TaskType> = ({ title, id, onUpdate, onRemove }) => {
       >
         <Box w='100%'>
           {isEdit ? (
-            <Box>
-              <Controller
-                name='title'
-                defaultValue={title}
-                control={control}
-                render={({ field }) => (
-                  <Input state={isEmpty(errors) ? 'normal' : 'invalid'}>
-                    <Input.Value {...field} placeholder='Title task' />
-                  </Input>
-                )}
-              />
-              <Text size={100}>{errors?.title?.message}</Text>
-            </Box>
+            <>
+              <Box>
+                <Box mb={2}>
+                  <Controller
+                    name='title'
+                    control={control}
+                    defaultValue={title}
+                    render={({ field }) => (
+                      <Input state={isEmpty(errors) ? 'normal' : 'invalid'}>
+                        <Input.Value {...field} placeholder='Title task' />
+                      </Input>
+                    )}
+                  />
+                  <Text color='var(--red)' size={100}>
+                    {errors?.title?.message}
+                  </Text>
+                </Box>
+
+                <Controller
+                  name='status'
+                  control={control}
+                  defaultValue={status}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      options={options}
+                      placeholder='Select status'
+                    />
+                  )}
+                />
+              </Box>
+
+              <Button mt={3} theme='success' use='primary' type='submit'>
+                Save
+              </Button>
+            </>
           ) : (
             <Text>{title}</Text>
-          )}
-
-          {isEdit && (
-            <Button mt={3} theme='success' use='primary' type='submit'>
-              Save
-            </Button>
           )}
         </Box>
 
